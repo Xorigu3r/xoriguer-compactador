@@ -1,0 +1,46 @@
+{
+  "name": "Xoriguer Compactador",
+  "short_name": "Compactador",
+  "description": "Comprimeix i descomprimeix ZIP, RAR, 7Z, TAR, GZ, ISO i molts més. Gratuït, sense anuncis i sense pujar res a Internet.",
+  "lang": "ca",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#1E2A3B",
+  "theme_color": "#1E2A3B",
+  "categories": ["utilities", "productivity"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "file_handlers": [
+    {
+      "action": "./",
+      "accept": {
+        "application/zip": [".zip", ".zipx", ".jar", ".apk", ".cbz"],
+        "application/vnd.rar": [".rar", ".cbr", ".r00"],
+        "application/x-7z-compressed": [".7z", ".cb7", ".001"],
+        "application/x-tar": [".tar"],
+        "application/gzip": [".gz", ".tgz"],
+        "application/x-bzip2": [".bz2", ".tbz2"],
+        "application/x-xz": [".xz", ".txz"],
+        "application/zstd": [".zst"],
+        "application/x-iso9660-image": [".iso"],
+        "application/vnd.ms-cab-compressed": [".cab"],
+        "application/x-lzh-compressed": [".lzh", ".lha"],
+        "application/x-arj": [".arj"],
+        "application/x-apple-diskimage": [".dmg"],
+        "application/x-ms-wim": [".wim"]
+      }
+    }
+  ],
+  "share_target": {
+    "action": "./compartit",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": { "files": [{ "name": "fitxers", "accept": ["*/*"] }] }
+  },
+  "launch_handler": { "client_mode": "focus-existing" }
+}

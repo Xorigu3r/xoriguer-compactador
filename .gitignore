@@ -1,0 +1,13 @@
+node_modules/
+android/app/build/
+android/build/
+android/.gradle/
+android/local.properties
+www/capacitor.js
+*.apk
+CLAUDE.md
+escriptori/node_modules/
+escriptori/www/
+dist/
+.claude/
+__pycache__/

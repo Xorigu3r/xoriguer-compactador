@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1E2A3B">
+  <title>Xoriguer Compactador</title>
+  <meta name="description" content="Comprimeix i descomprimeix ZIP, RAR, 7Z, TAR, GZ, ISO i molts més. Gratuït, sense anuncis i sense pujar res a Internet.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/favicon.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="cap" data-no-t>
+    <img class="cap-falco" src="icons/simbol.png" alt="">
+    <div class="marca">
+      <div class="marca-mot" aria-label="Xoriguer">
+        <svg class="marca-x" viewBox="0 0 242 153" aria-hidden="true"><path fill="#F6EFE2" d="M96.3,19.0 L94.7,18.0 L46.7,18.3 L50.7,25.0 L73.0,53.3 L91.3,78.7 L15.3,140.0 L0.3,151.0 L0.0,152.7 L48.3,152.7 L139.7,79.3 L136.7,73.3Z M146.3,87.0 L146.7,88.7 L130.0,109.3 L129.0,112.3 L122.7,118.7 L147.0,152.3 L195.7,152.7 L195.7,151.3 L173.7,123.3 L147.7,87.7Z"/><path fill="#FF8A00" d="M241.7,0.0 L199.3,0.0 L137.3,51.0 L137.0,52.7 L152.3,74.0Z"/><path fill="#F2650F" d="M146.7,88.3 L144.7,88.7 L109.3,118.0 L103.3,122.0 L85.7,136.7 L72.0,149.7 L76.0,148.7 L91.0,139.7 L123.0,118.0 L128.7,112.3 L129.7,109.3Z"/></svg><span class="marca-resta">ORIGUER</span>
+      </div>
+      <div class="marca-sub">COMPACTADOR</div>
+    </div>
+    <button id="b-instal" class="instal" hidden>Instal·la</button>
+  </header>
+
+  <main>
+    <!-- ================= OBRIR / DESCOMPRIMIR ================= -->
+    <section id="v-obrir" class="vista activa">
+      <div id="obrir-buit">
+        <label class="zona" id="zona-obrir" tabindex="0">
+          <input type="file" id="f-obrir" multiple hidden>
+          <svg viewBox="0 0 24 24" class="zona-ico"><path d="M20 6h-8l-2-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zm-6 10h-2v-2h2zm0-4h-2v-2h2zm2 2h-2v-2h2zm0-4h-2V8h2z"/></svg>
+          <b>Obre un arxiu comprimit</b>
+          <small>Toca per triar-lo o arrossega'l aquí</small>
+          <small class="formats" data-no-t>ZIP · RAR · 7Z · TAR · GZ · BZ2 · XZ · ZST · ISO · CAB · DMG · WIM · LZH · ARJ · Z · CPIO · RPM · DEB · APK · JAR…</small>
+        </label>
+        <p class="suau petit centre">Arxiu en diverses parts (.part1.rar, .7z.001, .z01…)? Tria totes les parts alhora.</p>
+
+        <div id="recents" class="targeta" hidden>
+          <div class="fila-titol"><h2>Activitat recent</h2><button class="discret petit" id="b-esborra-recents">Esborra</button></div>
+          <ul id="llista-recents" class="mini"></ul>
+        </div>
+
+        <div class="targeta">
+          <h2>Tot es queda al teu aparell</h2>
+          <p class="suau">Els arxius no es pugen enlloc: es comprimeixen i es descomprimeixen dins del teu navegador o mòbil amb el motor de <b>7-Zip</b>. Funciona sense connexió.</p>
+        </div>
+      </div>
+
+      <div id="obrir-ple" hidden>
+        <div class="targeta info-arxiu">
+          <div class="fila-titol">
+            <div class="nom-arxiu"><span id="ico-arxiu" class="ico-gran"></span><div><b id="a-nom"></b><small id="a-resum"></small></div></div>
+            <button class="discret" id="b-tanca-arxiu" aria-label="Tanca l'arxiu">✕</button>
+          </div>
+          <div id="a-detalls" class="detalls"></div>
+        </div>
+
+        <div class="eines-llista">
+          <div class="cerca"><input id="cerca" type="search" placeholder="Cerca dins de l'arxiu" autocomplete="off"></div>
+          <select id="ordre" aria-label="Ordena">
+            <option value="nom">Nom</option>
+            <option value="mida">Mida</option>
+            <option value="data">Data</option>
+            <option value="tipus">Tipus</option>
+          </select>
+        </div>
+        <nav id="molla" class="molla" data-no-t></nav>
+        <div class="sel-barra">
+          <label class="check"><input type="checkbox" id="sel-tot"> <span>Selecciona-ho tot</span></label>
+          <span id="sel-compte" class="suau petit"></span>
+        </div>
+        <ul id="llista" class="llista"></ul>
+        <p id="llista-buida" class="suau centre" hidden>No hi ha res aquí.</p>
+
+        <div class="accions-arxiu">
+          <button class="primari" id="b-extreu">Extreu-ho tot</button>
+          <button id="b-prova">Prova</button>
+          <button id="b-converteix">Converteix</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= COMPRIMIR ================= -->
+    <section id="v-comprimir" class="vista">
+      <div class="targeta">
+        <h2>Què vols comprimir?</h2>
+        <div class="botons-afegir">
+          <label class="boto"><input type="file" id="f-afegir" multiple hidden>＋ Fitxers</label>
+          <label class="boto" id="l-carpeta"><input type="file" id="f-carpeta" webkitdirectory multiple hidden>＋ Carpeta</label>
+          <button id="b-carpeta-fsa" hidden>＋ Carpeta</button>
+        </div>
+        <div class="zona petita" id="zona-comprimir"><small>…o arrossega fitxers i carpetes aquí</small></div>
+        <ul id="llista-afegits" class="llista afegits"></ul>
+        <div class="fila-titol" id="afegits-peu" hidden>
+          <small id="afegits-resum"></small>
+          <button class="discret petit" id="b-buida">Treu-ho tot</button>
+        </div>
+      </div>
+
+      <div class="targeta">
+        <h2>Opcions</h2>
+        <label class="camp">Nom de l'arxiu
+          <span class="nom-amb-ext"><input id="c-nom" maxlength="120" autocomplete="off" placeholder="arxiu"><b id="c-ext">.zip</b></span>
+        </label>
+        <div class="camp">Format
+          <div class="xips" id="c-format"></div>
+          <small id="c-format-ajuda"></small>
+        </div>
+        <label class="camp">Nivell de compressió
+          <select id="c-nivell">
+            <option value="0">Sense compressió (només emmagatzema)</option>
+            <option value="1">Molt ràpid</option>
+            <option value="3">Ràpid</option>
+            <option value="5">Normal</option>
+            <option value="7">Màxim</option>
+            <option value="9">Ultra</option>
+          </select>
+        </label>
+        <div id="c-bloc-pw">
+          <label class="camp">Contrasenya <small>(opcional)</small>
+            <span class="pw"><input id="c-pw" type="password" autocomplete="new-password" placeholder="Deixa-ho buit per no xifrar"><button type="button" class="discret ull" data-ull="c-pw" aria-label="Mostra la contrasenya">👁</button></span>
+          </label>
+          <label class="check" id="c-l-noms"><input type="checkbox" id="c-noms" checked> <span>Xifra també els noms dels fitxers</span></label>
+          <label class="camp" id="c-l-metode">Xifratge ZIP
+            <select id="c-metode">
+              <option value="aes">AES-256 (segur)</option>
+              <option value="zipcrypto">ZipCrypto (compatible amb l'Explorador de Windows, poc segur)</option>
+            </select>
+          </label>
+        </div>
+        <label class="camp">Divideix en parts
+          <select id="c-volum">
+            <option value="0">No</option>
+            <option value="10485760">10 MB</option>
+            <option value="26214400">25 MB (correu)</option>
+            <option value="104857600">100 MB</option>
+            <option value="734003200">700 MB (CD)</option>
+            <option value="4294901760">4 GB (FAT32)</option>
+          </select>
+        </label>
+        <button class="primari gran" id="b-comprimeix" disabled>Comprimeix</button>
+      </div>
+
+      <div id="resultat" class="targeta resultat" hidden>
+        <h2>Fet!</h2>
+        <ul id="res-fitxers" class="mini"></ul>
+        <p id="res-resum" class="suau"></p>
+        <div class="accions-desa" id="res-accions"></div>
+      </div>
+    </section>
+
+    <!-- ================= GUIA ================= -->
+    <section id="v-guia" class="vista">
+      <div class="targeta">
+        <h2>Guia</h2>
+        <p class="suau">Xoriguer Compactador és gratuït, sense anuncis i sense registre. Tot el treball es fa al teu aparell.</p>
+      </div>
+      <details class="targeta" id="g-obrir" open>
+        <summary>Descomprimir un arxiu</summary>
+        <ol>
+          <li>A <b>Obre</b>, toca la zona de dalt i tria l'arxiu (o arrossega'l, a l'ordinador).</li>
+          <li>Navega per les carpetes. Toca un fitxer per veure'l, extreure'l o compartir-lo.</li>
+          <li>Marca'n uns quants i toca <b>Extreu la selecció</b>, o <b>Extreu-ho tot</b>.</li>
+          <li>Tria on el vols: una carpeta (ordinador), <b>Comparteix / Desa a Fitxers</b> (mòbil) o descarrega'l.</li>
+        </ol>
+        <p>Si l'arxiu té contrasenya, te la demanarà. Si un arxiu de dins també és comprimit, el pots obrir sense extreure'l.</p>
+      </details>
+      <details class="targeta" id="g-comprimir">
+        <summary>Comprimir fitxers</summary>
+        <ol>
+          <li>A <b>Comprimeix</b>, afegeix fitxers o carpetes.</li>
+          <li>Tria el format: <b>ZIP</b> s'obre a tot arreu; <b>7Z</b> comprimeix més; <b>TAR.GZ</b> és el de Linux.</li>
+          <li>Si vols, posa-hi contrasenya i divideix-lo en parts.</li>
+          <li>Toca <b>Comprimeix</b> i desa o comparteix el resultat.</li>
+        </ol>
+      </details>
+      <details class="targeta" id="g-formats">
+        <summary>Formats</summary>
+        <p><b>Obre i extreu:</b> 7Z, ZIP (i ZIPX, JAR, APK, DOCX, XLSX, EPUB…), RAR i RAR5, TAR, GZ, TGZ, BZ2, XZ, TXZ, ZST, LZMA, LZ4*, Z, CAB, ISO, IMG, UDF, DMG, HFS, WIM, ESD, MSI, CHM, LZH/LHA, ARJ, CPIO, RPM, DEB, AR, XAR, PKG, NSIS, SquashFS, CramFS, VHD, VHDX, VMDK, VDI, QCOW2, FAT, NTFS, EXT, MBR, GPT…</p>
+        <p><b>Crea:</b> 7Z, ZIP, TAR, TAR.GZ, TAR.BZ2, TAR.XZ, GZ, BZ2, XZ i WIM.</p>
+        <p><b>Contrasenya:</b> llegeix ZIP (ZipCrypto i AES), 7Z (també amb noms xifrats) i RAR/RAR5. En crea en 7Z (AES-256) i ZIP (AES-256 o ZipCrypto).</p>
+        <p><b>Arxius en parts:</b> obre .part1.rar, .r00, .7z.001, .zip + .z01… Tria totes les parts a la vegada.</p>
+        <p class="suau petit">No pot <b>crear</b> RAR: el format és propietari i només el programa WinRAR de pagament en pot fer. Cap app gratuïta en pot crear legalment.</p>
+      </details>
+      <details class="targeta" id="g-instal">
+        <summary>Instal·lar l'app</summary>
+        <p><b>Android:</b> amb Chrome, menú <b>⋮</b> → <b>Instal·la l'aplicació</b>. O instal·la l'APK <b>XoriguerCompactador.apk</b> (si Play Protect avisa: «Més detalls» → «Instal·la igualment»).</p>
+        <p><b>iPhone / iPad:</b> amb Safari, botó <b>Comparteix</b> → <b>Afegeix a la pantalla d'inici</b>.</p>
+        <p><b>Ordinador (Windows, Mac, Linux):</b> amb Chrome o Edge, la icona <b>⊕</b> de la barra d'adreces → <b>Instal·la</b>. Un cop instal·lada, pots obrir els .zip, .rar, .7z… amb doble clic (botó dret → Obre amb → Xoriguer Compactador).</p>
+        <p>Instal·lada, funciona sense Internet.</p>
+      </details>
+      <details class="targeta" id="g-problemes">
+        <summary>Problemes i límits</summary>
+        <ul>
+          <li><b>Arxius molt grans:</b> el navegador té un límit de memòria (uns 2 GB per arxiu). Per a arxius enormes, fes servir un programa d'escriptori.</li>
+          <li><b>«Contrasenya incorrecta»:</b> comprova les majúscules. Els ZIP fets amb ZipCrypto de vegades només avisen quan l'extreus.</li>
+          <li><b>«Falta una part»:</b> en arxius de diverses parts, tria-les totes alhora.</li>
+          <li><b>iPhone:</b> per desar en una carpeta, fes <b>Comparteix → Desa a Fitxers</b>.</li>
+        </ul>
+      </details>
+      <details class="targeta" id="g-quant">
+        <summary>Llicències</summary>
+        <p>Motor: <b>7-Zip</b> © Igor Pavlov (LGPL), compilat a WebAssembly (7z-wasm). El codi de descompressió de RAR fa servir la llicència unRAR: es pot fer servir per extreure, no per recrear l'algorisme de compressió RAR.</p>
+        <p><a href="vendor/7zip-License.txt" target="_blank" rel="noopener">Llicència de 7-Zip</a> · <a href="vendor/unRAR-License.txt" target="_blank" rel="noopener">Llicència unRAR</a></p>
+        <p class="suau petit" id="versio-txt" data-no-t></p>
+      </details>
+    </section>
+
+    <!-- ================= AJUSTOS ================= -->
+    <section id="v-ajustos" class="vista">
+      <div class="targeta">
+        <h2>Ajustos</h2>
+        <label class="camp">Idioma
+          <select id="aj-idioma" data-no-t>
+            <option value="">Automàtic / Auto</option>
+            <option value="ca">Català</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="en">English</option>
+          </select>
+        </label>
+        <label class="camp">Format per defecte
+          <select id="aj-format"></select>
+        </label>
+        <label class="camp">Nivell per defecte
+          <select id="aj-nivell">
+            <option value="1">Molt ràpid</option>
+            <option value="3">Ràpid</option>
+            <option value="5">Normal</option>
+            <option value="7">Màxim</option>
+            <option value="9">Ultra</option>
+          </select>
+        </label>
+        <label class="check"><input type="checkbox" id="aj-carpeta"> <span>En extreure, posa-ho dins d'una carpeta amb el nom de l'arxiu</span></label>
+        <label class="check"><input type="checkbox" id="aj-planes"> <span>Extreu sense carpetes (tots els fitxers junts)</span></label>
+        <label class="check"><input type="checkbox" id="aj-recents"> <span>Recorda l'activitat recent</span></label>
+      </div>
+      <div class="targeta">
+        <h2>Privadesa</h2>
+        <p class="suau">L'app no té servidor, no fa estadístiques ni porta anuncis. Els arxius no surten mai del teu aparell. Només desa els ajustos i, si ho vols, la llista d'activitat recent (només noms i mides).</p>
+      </div>
+    </section>
+  </main>
+
+  <nav class="pestanyes">
+    <button data-v="obrir" class="activa"><svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zm-8 11-4-4h3V9h2v4h3z"/></svg>Obre</button>
+    <button data-v="comprimir"><svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zm-8 3 4 4h-3v4h-2v-4H8z"/></svg>Comprimeix</button>
+    <button data-v="guia"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 17h-2v-2h2zm2.07-7.75-.9.92A3.4 3.4 0 0 0 13 15h-2v-.5a4 4 0 0 1 1.17-2.83l1.24-1.26A1.96 1.96 0 0 0 14 9a2 2 0 0 0-4 0H8a4 4 0 0 1 8 0 3.2 3.2 0 0 1-.93 2.25z"/></svg>Guia</button>
+    <button data-v="ajustos"><svg viewBox="0 0 24 24"><path d="M19.4 13a7.6 7.6 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.4 7.4 0 0 0-1.7-1L15 3h-4l-.4 2.6a7.4 7.4 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.6 7.6 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1c.5.4 1.1.7 1.7 1L11 21h4l.4-2.6c.6-.3 1.2-.6 1.7-1l2.5 1 2-3.5zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/></svg>Ajustos</button>
+  </nav>
+
+  <!-- Diàleg genèric (contrasenya, on desar, accions d'un fitxer, convertir) -->
+  <dialog id="dlg">
+    <div class="fila-titol"><h2 id="dlg-titol"></h2><button type="button" class="discret" id="dlg-tanca" aria-label="Tanca">✕</button></div>
+    <div id="dlg-cos"></div>
+  </dialog>
+
+  <!-- Progrés -->
+  <dialog id="dlg-progres" class="progres-dlg">
+    <h2 id="pr-titol">Treballant…</h2>
+    <div class="barra-progres"><span id="pr-barra"></span></div>
+    <p id="pr-text" class="suau petit" data-no-t></p>
+    <button id="pr-cancel" class="discret">Cancel·la</button>
+  </dialog>
+
+  <!-- Vista prèvia -->
+  <dialog id="dlg-previa" class="previa">
+    <div class="fila-titol"><b id="pv-nom" data-no-t></b><button type="button" class="discret" id="pv-tanca" aria-label="Tanca">✕</button></div>
+    <div id="pv-cos"></div>
+    <div class="accions-desa" id="pv-accions"></div>
+  </dialog>
+
+  <div id="avis" class="avis-flotant" role="status" hidden></div>
+
+  <script src="capacitor.js" onerror="this.remove()"></script>
+  <script src="i18n.js"></script>
+  <script src="traduccions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+{
+  "name": "xoriguer-compactador-escriptori",
+  "version": "1.0.0",
+  "description": "Xoriguer Compactador",
+  "author": "Xoriguer",
+  "main": "main.js",
+  "private": true,
+  "build": {
+    "appId": "cat.xoriguer.compactador",
+    "productName": "Xoriguer Compactador",
+    "copyright": "Xoriguer",
+    "directories": {
+      "output": "../dist/escriptori"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "icona.png",
+      "www/**"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "icona.ico"
+    },
+    "fileAssociations": [
+      {
+        "ext": "zip",
+        "name": "Arxiu ZIP",
+        "description": "Arxiu ZIP",
+        "icon": "icona.ico",
+        "role": "Viewer"
+      },
+      {
+        "ext": "rar",
+        "name": "Arxiu RAR",
+        "description": "Arxiu RAR",
+        "icon": "icona.ico",
+        "role": "Viewer"
+      },
+      {
+        "ext": "7z",
+        "name": "Arxiu 7-Zip",
+        "description": "Arxiu 7-Zip",
+        "icon": "icona.ico",
+        "role": "Viewer"
+      },
+      {
+        "ext": "tar",
+        "name": "Arxiu TAR",
+        "description": "Arxiu TAR",
+        "icon": "icona.ico",
+        "role": "Viewer"
+      },
+      {
+        "ext": "gz",
+        "name": "Arxiu GZ",
+        "description": "Arxiu GZ",
+        "icon": "icona.ico",
+        "role": "Viewer"
+      },
+      {
+        "ext": "tgz",
+        "name": "Arxiu TGZ",
+        "description": "Arxiu TGZ",
+        "icon": "icona.ico",
+        "role": "Viewer"
+      },
+      {
+        "ext": "bz2",
+        "name": "Arxiu BZ2",
+        "description": "Arxiu BZ2",
+        "icon": "icona.ico",
+        "role": "Viewer"
+      },
+      {
+        "ext": "xz",
+        "name": "Arxiu XZ",
+        "description": "Arxiu XZ",
+        "icon": "icona.ico",
+        "role": "Viewer"
+      },
+      {
+        "ext": "zst",
+        "name": "Arxiu ZST",
+        "description": "Arxiu ZST",
+        "icon": "icona.ico",
+        "role": "Viewer"
+      },
+      {
+        "ext": "iso",
+        "name": "Imatge ISO",
+        "description": "Imatge ISO",
+        "icon": "icona.ico",
+        "role": "Viewer"
+      },
+      {
+        "ext": "cab",
+        "name": "Arxiu CAB",
+        "description": "Arxiu CAB",
+        "icon": "icona.ico",
+        "role": "Viewer"
+      },
+      {
+        "ext": "lzh",
+        "name": "Arxiu LZH",
+        "description": "Arxiu LZH",
+        "icon": "icona.ico",
+        "role": "Viewer"
+      },
+      {
+        "ext": "arj",
+        "name": "Arxiu ARJ",
+        "description": "Arxiu ARJ",
+        "icon": "icona.ico",
+        "role": "Viewer"
+      },
+      {
+        "ext": "wim",
+        "name": "Imatge WIM",
+        "description": "Imatge WIM",
+        "icon": "icona.ico",
+        "role": "Viewer"
+      },
+      {
+        "ext": "001",
+        "name": "Arxiu en parts",
+        "description": "Arxiu en parts",
+        "icon": "icona.ico",
+        "role": "Viewer"
+      }
+    ],
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": false,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Xoriguer Compactador",
+      "uninstallDisplayName": "Xoriguer Compactador",
+      "installerIcon": "icona.ico",
+      "uninstallerIcon": "icona.ico",
+      "installerHeaderIcon": "icona.ico",
+      "language": "1027",
+      "installerLanguages": [
+        "ca_ES"
+      ],
+      "warningsAsErrors": false,
+      "include": "installer.nsh",
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": false,
+      "artifactName": "XoriguerCompactador-Instalador.exe"
+    }
+  },
+  "devDependencies": {
+    "electron": "33.2.1",
+    "electron-builder": "25.1.8"
+  }
+}

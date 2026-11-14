@@ -1,0 +1,26 @@
+{
+  "name": "xoriguer-compactador",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Compressor i descompressor d'arxius (ZIP, RAR, 7Z, TAR, GZ, BZ2, XZ, ISO, CAB...) gratuït i sense anuncis",
+  "scripts": {
+    "icons": "python -I eines/genera_logo.py && npx capacitor-assets generate --android --iconBackgroundColor #1E2A3B --splashBackgroundColor #1E2A3B --splashBackgroundColorDark #1E2A3B",
+    "serve": "node scripts/serve.mjs 8797",
+    "copy:cap": "node -e \"require('fs').copyFileSync('node_modules/@capacitor/core/dist/capacitor.js','www/capacitor.js')\"",
+    "sync": "npm run copy:cap && npx cap sync android",
+    "apk": "npm run sync && powershell -ExecutionPolicy Bypass -File scripts/build-apk.ps1",
+    "exe": "powershell -ExecutionPolicy Bypass -File scripts/build-exe.ps1"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.6.0",
+    "@capacitor/app": "^8.1.2",
+    "@capacitor/core": "^8.6.0",
+    "@capacitor/filesystem": "^8.1.5",
+    "@capacitor/share": "^8.0.3",
+    "7z-wasm": "^1.2.0"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^4.0.0",
+    "@capacitor/cli": "^8.6.0"
+  }
+}
