@@ -843,5 +843,12 @@
   pintaCmp();
   pintaRecents();
   compartits();
+  // app d'Android: s'actualitza sense reinstal·lar (xoriguer-actualitza.js)
+  if (window.XActualitza?.natiu) {
+    window.XActualitza.inicia({ app: 'compactador', versio: VERSIO });
+    const b = $('#busca-act');
+    b.textContent = window.XActualitza.text('boto'); b.hidden = false;
+    b.onclick = () => window.XActualitza.comprova(true, (s) => { $('#act-res').textContent = s; });
+  }
   window.XC = { est, cmp, obreFitxers, afegeix, VERSIO };
 })();
