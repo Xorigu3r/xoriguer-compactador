@@ -1,5 +1,5 @@
 // Xoriguer Compactador — funcionament sense connexió i recepció de fitxers compartits (share_target).
-const CACHE = 'xoriguer-compactador-v1';
+const CACHE = 'xoriguer-compactador-v1-icones';
 const FITXERS = ['./', 'index.html', 'style.css', 'i18n.js', 'traduccions.js', 'app.js', 'motor.js', 'manifest.webmanifest',
   'vendor/7zz.es6.js', 'vendor/7zz.wasm', 'fonts/Montserrat-ExtraBold.ttf',
   'icons/simbol.png', 'icons/favicon.png', 'icons/icon-192.png', 'icons/icon-512.png'];
