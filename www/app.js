@@ -849,6 +849,39 @@
     const b = $('#busca-act');
     b.textContent = window.XActualitza.text('boto'); b.hidden = false;
     b.onclick = () => window.XActualitza.comprova(true, (s) => { $('#act-res').textContent = s; });
+  } else if (window.xcEscriptori) {
+    // programa de Windows: mira el versio.json de xoriguer.dev i, si n'hi ha una de més nova, ofereix l'instal·lador
+    const b = $('#busca-act');
+    b.textContent = T_('Busca actualitzacions'); b.hidden = false;
+    b.onclick = () => buscaActualitzacio(true);
+    setTimeout(() => buscaActualitzacio(false), 4000);
   }
+  // ---------- Actualitzacions (programa de Windows) ----------
+  function versioMesNova(x, y) {
+    const pa = String(x).split(/[.\s-]/).map((n) => parseInt(n, 10) || 0), pb = String(y).split(/[.\s-]/).map((n) => parseInt(n, 10) || 0);
+    for (let i = 0; i < Math.max(pa.length, pb.length); i++) if ((pa[i] || 0) !== (pb[i] || 0)) return (pa[i] || 0) > (pb[i] || 0);
+    return false;
+  }
+  async function buscaActualitzacio(manual) {
+    const res = $('#act-res');
+    const diu = (t) => { if (res) res.textContent = t; };
+    let ult = 0, tancada = '';
+    try { ult = +localStorage.getItem('xc_act_ultima') || 0; tancada = localStorage.getItem('xc_act_tancada') || ''; } catch { /* res */ }
+    if (!manual && Date.now() - ult < 20 * 3600e3) return;
+    try { localStorage.setItem('xc_act_ultima', String(Date.now())); } catch { /* res */ }
+    if (manual) diu(T_('Buscant actualitzacions…'));
+    let j;
+    try { j = await (await fetch('https://xoriguer.dev/versions/compactador/versio.json?t=' + Date.now(), { cache: 'no-store' })).json(); }
+    catch { if (manual) diu(T_("No s'ha pogut comprovar. Tens connexió a Internet?")); return; }
+    if (!j.versio || !j.url || !versioMesNova(j.versio, VERSIO)) { if (manual) diu(T_('Ja tens la darrera versió ({v}).', { v: VERSIO })); return; }
+    diu(T_('Hi ha la versió {v}.', { v: j.versio }));
+    if (!manual && tancada === j.versio) return;
+    if (confirm(T_('Hi ha la versió {v} de Xoriguer Compactador (tu tens la {a}). Vols baixar-la? Instal·la-la per sobre: no es perd res.', { v: j.versio, a: VERSIO }))) {
+      window.open(j.url, '_blank');   // main.js obre les adreces externes al navegador
+    } else {
+      try { localStorage.setItem('xc_act_tancada', j.versio); } catch { /* res */ }
+    }
+  }
+
   window.XC = { est, cmp, obreFitxers, afegeix, VERSIO };
 })();

@@ -4,6 +4,13 @@
 'use strict';
 (function (g) {
   const F = [
+    // ---------- Actualitzacions (Windows) ----------
+    ['Busca actualitzacions', 'Buscar actualizaciones', 'Rechercher des mises à jour', 'Check for updates'],
+    ['Buscant actualitzacions…', 'Buscando actualizaciones…', 'Recherche de mises à jour…', 'Checking for updates…'],
+    ["No s'ha pogut comprovar. Tens connexió a Internet?", 'No se ha podido comprobar. ¿Tienes conexión a Internet?', 'Impossible de vérifier. Êtes-vous connecté à Internet ?', "Couldn't check. Are you connected to the Internet?"],
+    ['Ja tens la darrera versió ({v}).', 'Ya tienes la última versión ({v}).', 'Vous avez déjà la dernière version ({v}).', 'You already have the latest version ({v}).'],
+    ['Hi ha la versió {v}.', 'Hay la versión {v}.', 'La version {v} est disponible.', 'Version {v} is available.'],
+    ['Hi ha la versió {v} de Xoriguer Compactador (tu tens la {a}). Vols baixar-la? Instal·la-la per sobre: no es perd res.', 'Hay la versión {v} de Xoriguer Compactador (tú tienes la {a}). ¿Quieres descargarla? Instálala encima: no se pierde nada.', 'La version {v} de Xoriguer Compactador est disponible (vous avez la {a}). Voulez-vous la télécharger ? Installez-la par-dessus : rien n’est perdu.', 'Version {v} of Xoriguer Compactador is available (you have {a}). Do you want to download it? Install it over the current one: nothing is lost.'],
     // ---------- Obre ----------
     ['Instal·la', 'Instalar', 'Installer', 'Install'],
     ['Obre un arxiu comprimit', 'Abre un archivo comprimido', 'Ouvrir une archive', 'Open an archive'],
