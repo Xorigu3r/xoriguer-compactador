@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Compactador</string>
-    <string name="title_activity_main">Compactador</string>
+    <string name="app_name">RAR</string>
+    <string name="title_activity_main">RAR</string>
     <string name="package_name">cat.xoriguer.compactador</string>
     <string name="custom_url_scheme">cat.xoriguer.compactador</string>
 </resources>

@@ -1,6 +1,6 @@
 {
   "appId": "cat.xoriguer.compactador",
-  "appName": "Compactador",
+  "appName": "RAR",
   "webDir": "www",
   "android": { "backgroundColor": "#1E2A3B" }
 }
